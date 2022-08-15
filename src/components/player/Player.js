@@ -14,7 +14,7 @@ function Player({ player, onVictoire, onNext, activePlayer }) {
         if (state.global >= 10) {
             onVictoire(player)
         }
-    }, [state.global])
+    }, [state.global, onVictoire, player])
 
     function onHold() {
         dispatch(hold());
@@ -34,7 +34,7 @@ function Player({ player, onVictoire, onNext, activePlayer }) {
                 <div className="d-flex flex-fill">
                     <div className="p-2 flex-fill "></div>
                     <div className="d-flex flex-column p-2 justify-content-around text-center">
-                        <div className="p-2"><img src={logo} className={`logo filter-dice ${activePlayer ? 'animated-logo' : ''}`}></img></div>
+                        <div className="p-2"><img src={logo} className={`logo filter-dice ${activePlayer ? 'animated-logo' : ''}`} alt='logo'></img></div>
                         <div className="p-2 player">PLAYER {player}</div>
                         <div className="p-2 global">{state.global}</div>
                     </div>
