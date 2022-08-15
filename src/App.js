@@ -5,7 +5,6 @@ import './App.scss';
 
 import Button from 'react-bootstrap/Button';
 
-import Dice from "./components/player/Dice";
 import Studice from "./components/Studice";
 
 function App() {
