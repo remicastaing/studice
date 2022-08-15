@@ -1,0 +1,51 @@
+.player {
+    font-size: 5rem;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+}
+
+.global {
+    font-size: 10rem;
+    color: #EB4D4C;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+}
+
+
+.round {
+    font-size: 5rem;
+    color: black;
+    background-color: #EB4D4C;
+    font-family: 'Lato', sans-serif;
+
+}
+
+.round-count {
+    color: white;
+    font-weight: 600;
+}
+
+.action {
+    font-weight: 600;
+}
+
+.logo {
+    width: 50%;
+    height: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .animated-logo {
+        animation: logo-spin infinite 20s linear;
+    }
+}
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

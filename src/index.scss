@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+$theme-colors: (
+  "primary": #EB4D4C,
+  "danger": #ff4136
+);
+
+@import '~bootstrap/scss/bootstrap.scss';
+
+.filter-dice {
+  filter: invert(47%) sepia(22%) saturate(1709%) hue-rotate(314deg) brightness(91%) contrast(101%);
+}
