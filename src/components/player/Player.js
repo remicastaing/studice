@@ -1,5 +1,5 @@
 import { React, useReducer, useEffect } from 'react';
-import { PlayerReducer, playerInitialState, roll, hold, new_game } from "./PlayerReducer";
+import { PlayerReducer, playerInitialState, roll, hold } from "./PlayerReducer";
 import './player.scss'
 import logo from '../../assets/logo.svg';
 import Card from 'react-bootstrap/Card';
@@ -57,7 +57,7 @@ function Player({ player, onVictoire, onNext, activePlayer }) {
                             <br></br>
                         </div>}
                         <h1>
-                        {state.dices.map((dice => <Dice valeur={dice}></Dice>))}
+                            {state.dices.map((dice => <Dice valeur={dice}></Dice>))}
                         </h1>
                     </div>
                 </div>
