@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 
 import Player from "../components/player/Player";
 import VictoireModal from "../components/VictoireModal";

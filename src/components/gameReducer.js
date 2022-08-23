@@ -1,6 +1,6 @@
-import produce from "immer"
 
-const SEUIL = 10;
+
+const SEUIL = 100;
 
 function newPlayer(id) {
     return {
