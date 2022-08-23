@@ -5,11 +5,11 @@ import VictoireModal from "../components/VictoireModal";
 import Commands from "../components/commands/Commands";
 import Footer from "./Footer";
 
-import Button from 'react-bootstrap/Button';
 
 
 
-import { immerGameReducer, gameInitialState } from "./gameReducer";
+
+import { immerGameReducer, gameInitialState } from "../services/gameReducer";
 import { useImmerReducer } from "use-immer";
 
 function Studice() {
@@ -17,13 +17,7 @@ function Studice() {
 
     const [state, dispatch] = useImmerReducer(immerGameReducer, gameInitialState);
 
-    function addPlayer() {
-        dispatch({ type: 'add_player' });
-    }
 
-    function removePlayer() {
-        dispatch({ type: 'remove_player' });
-    }
 
     function newGame() {
         dispatch({ type: 'new_game' })
@@ -46,14 +40,7 @@ function Studice() {
 
             <Commands dispatch={dispatch} started={state.started}></Commands>
 
-            {!state.started && <Footer>
-                {!state.started && state.players.length < 4 && <Button onClick={addPlayer} variant="outline-primary" className='mx-5'>
-                    <i className="icon bi bi-person-plus"></i> Ajouter un joueur
-                </Button>}
-                {!state.started && state.players.length > 1 && <Button onClick={removePlayer} variant="outline-primary" className='mx-5'>
-                    <i className="icon bi bi-person-dash"></i> Supprimer un joueur
-                </Button>}
-            </Footer>}
+            {!state.started && <Footer dispatch={dispatch} nb_player={state.players.length}></Footer>}
         </>
     )
 }
