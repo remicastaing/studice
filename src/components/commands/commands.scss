@@ -1,0 +1,31 @@
+.commands {
+    position: fixed;
+    /* could be absolute */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 300px;
+    height: 100%;
+}
+
+.dice {
+    position: fixed;
+    /* could be absolute */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 300px;
+    height: 100%;
+}
+
+.icon {
+    color: #EB4D4C;
+}
+
+.action{
+    background-color: white;
+}

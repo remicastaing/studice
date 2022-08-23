@@ -1,68 +1,39 @@
-import { React, useReducer, useEffect } from 'react';
-import { PlayerReducer, playerInitialState, roll, hold } from "./PlayerReducer";
+import { React } from 'react';
+
 import './player.scss'
 import logo from '../../assets/logo.svg';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Dice from "./Dice";
+import Dice from "../Dice";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-function Player({ player, onVictoire, onNext, activePlayer }) {
-    const [state, dispatch] = useReducer(PlayerReducer, playerInitialState);
 
-    useEffect(() => {
-        if (state.global >= 10) {
-            onVictoire(player)
-        }
-    }, [state.global, onVictoire, player])
-
-    function onHold() {
-        dispatch(hold());
-        onNext();
-    }
-
-    function onRoll() {
-        dispatch(roll())
-        onNext();
-    }
+function Player({ player, actif }) {
 
     return (
-        <Card border="primary" >
+        <>
+            <div className="d-flex">
+                <div className="flex-fill "></div>
+                <div className="d-flex flex-column justify-content-evenly text-center">
+                    <div className="p-2"><img src={logo} className={`logo filter-dice ${actif ? 'animated-logo' : ''}`} alt='logo'></img></div>
+                    <div className="name">PLAYER {player.id}</div>
+                    <div className="global">{player.global}</div>
+                    <div className="square">
+                    <div className='round col-4 text-center p-1'>
+                        <div className={'p-3'}>Current</div>
+                        <div className='round-count p-3'>{player.round}</div>
+                        <h3>
+                            <div className="d-flex align-content-start flex-wrap">
 
-            <div className="d-flex flex-fill flex-column mb-3 justify-content-around " >
+                                {player.dices.map(((dice, index) => <Dice key={'d-' + player.id + '-' + index} valeur={dice} addedClass={'dices'}></Dice>))}
 
-                <div className="d-flex flex-fill">
-                    <div className="p-2 flex-fill "></div>
-                    <div className="d-flex flex-column p-2 justify-content-around text-center">
-                        <div className="p-2"><img src={logo} className={`logo filter-dice ${activePlayer ? 'animated-logo' : ''}`} alt='logo'></img></div>
-                        <div className="p-2 player">PLAYER {player}</div>
-                        <div className="p-2 global">{state.global}</div>
-                    </div>
-                    <div className="p-2 flex-fill"></div>
-                </div>
-                <div className="p-2 d-flex flex-row flex-fill justify-content-around">
-                    <div className='p-2 '>
-                        {activePlayer && <Button onClick={onHold} variant="outline-primary" disabled={!activePlayer} className="action">
-                            <i className="bi bi-box-arrow-in-down"></i> HOLD
-                        </Button>}
-
-                    </div>
-                    <div className='p-2 text-center round'>Current
-                        <br></br><div className='round-count'>{state.round}</div></div>
-                    <div className='p-2 '>
-                        {activePlayer && <div>
-                            <Button onClick={onRoll} variant="outline-primary" disabled={!activePlayer} className="action">
-                                <i className="bi bi-arrow-repeat"></i> ROLL DICE
-                            </Button>
-                            <br></br>
-                        </div>}
-                        <h1>
-                            {state.dices.map((dice => <Dice valeur={dice}></Dice>))}
-                        </h1>
+                            </div>
+                        </h3>
                     </div>
                 </div>
+                </div>
+                <div className="flex-fill"></div>
             </div>
-        </Card>)
+        </>
+    )
 }
 
 export default Player

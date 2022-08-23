@@ -1,85 +1,60 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 
 import Player from "../components/player/Player";
 import VictoireModal from "../components/VictoireModal";
+import Commands from "../components/commands/Commands";
 import Footer from "./Footer";
-import logo from '../assets/logo.svg';
+
 import Button from 'react-bootstrap/Button';
+
+
+
+import { immerGameReducer, gameInitialState } from "./gameReducer";
+import { useImmerReducer } from "use-immer";
 
 function Studice() {
 
-    const [players, setPlayers] = useState([1]);
-    const [currentPlayer, setCurrentPlayer] = useState(1);
-    const [vainqueur, setVainqueur] = useState(0);
-    const [restart, setRestart] = useState(false);
-    const [started, setStarted] = useState(false);
 
-    function reset() {
-        setStarted(false);
-        setRestart(true);
-        setVainqueur(0);
-        setCurrentPlayer(1)
-    }
-
-    function victoire(vainqueur) {
-        setVainqueur(vainqueur)
-    }
-
-    function onNext() {
-        setStarted(true);
-        setCurrentPlayer(currentPlayer % players.length + 1);
-    }
-
-    function newGame() {
-        reset();
-        setTimeout(() => { setRestart(false) }, 500);
-    }
+    const [state, dispatch] = useImmerReducer(immerGameReducer, gameInitialState);
 
     function addPlayer() {
-        setPlayers([...players, players.length + 1]);
-        console.log(players)
+        dispatch({ type: 'add_player' });
     }
 
     function removePlayer() {
-        setPlayers(Array.from({ length: players.length - 1 }, (_, i) => i + 1));
-        console.log(players)
+        dispatch({ type: 'remove_player' });
     }
 
-
-    if (restart) {
-        return <div>
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                </header>
-
-            </div>
-        </div>
+    function newGame() {
+        dispatch({ type: 'new_game' })
     }
+
     return (
-        <div>
-            <div className="alert alert-success float-end ">
-
-            </div>
-            <div class="row g-5">
-                {players.map((player => <div class="col-6 p-5"><Player key={player} player={player} onNext={onNext} onVictoire={victoire} activePlayer={player === currentPlayer}></Player></div>))}
+        <>
+            <div className={'game d-flex flex-column justify-content-around'}>
+            {state.players.length < 3 && <div className='flex-fill'></div>}
+                <div className='row' style={{minHeight: '100%'}}>
+                    {state.players.map((player => <div key={'p-' + player.id} className={`col-6  d-flex flex-column justify-content-evenly`} style={{backgroundColor : (player.id%2===0) ^ (Math.round(player.id/2)%2 ===1)? '#DFDFDF' : 'white'}}><Player player={player} actif={player.id === state.currentPlayer + 1}></Player></div>))}
+                </div>
+                <div className='flex-fill'></div>
+                    
             </div>
             <VictoireModal
                 onHide={newGame}
-                vainqueur={vainqueur}
+                vainqueur={state.vainqueur}
             />
-            <Footer>
-                {!started && players.length < 4 && <Button onClick={addPlayer} variant="outline-primary" className='mx-5'>
-                    <i className="bi bi-person-plus"></i> Ajouter un joueur
+
+            <Commands dispatch={dispatch} started={state.started}></Commands>
+
+            {!state.started && <Footer>
+                {!state.started && state.players.length < 4 && <Button onClick={addPlayer} variant="outline-primary" className='mx-5'>
+                    <i className="icon bi bi-person-plus"></i> Ajouter un joueur
                 </Button>}
-                {!started && players.length > 1 && <Button onClick={removePlayer} variant="outline-primary" className='mx-5'>
-                    <i className="bi bi-person-dash"></i> Supprimer un joueur
+                {!state.started && state.players.length > 1 && <Button onClick={removePlayer} variant="outline-primary" className='mx-5'>
+                    <i className="icon bi bi-person-dash"></i> Supprimer un joueur
                 </Button>}
-                {started && <Button onClick={newGame} variant="outline-primary" className='mx-5'>
-                    <i className="bi bi-plus-circle"></i> New game
-                </Button>}
-            </Footer>
-        </div>
+            </Footer>}
+        </>
     )
 }
 

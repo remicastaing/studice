@@ -1,22 +1,38 @@
-.player {
-    font-size: 5rem;
-    font-family: 'Lato', sans-serif;
+
+.name {
+    font-size: 2vw;
     font-weight: 600;
 }
 
 .global {
-    font-size: 10rem;
+    font-size: 3vw;
     color: #EB4D4C;
-    font-family: 'Lato', sans-serif;
     font-weight: 600;
 }
 
 
+.square {
+    position: relative;
+
+
+}
+
+.square:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
 .round {
-    font-size: 5rem;
+    font-size: 2vw;
     color: black;
     background-color: #EB4D4C;
-    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
 
 }
 
@@ -25,12 +41,9 @@
     font-weight: 600;
 }
 
-.action {
-    font-weight: 600;
-}
 
 .logo {
-    width: 50%;
+    width: 15%;
     height: auto;
 }
 
@@ -48,4 +61,8 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+.dices{
+    color: white
 }
